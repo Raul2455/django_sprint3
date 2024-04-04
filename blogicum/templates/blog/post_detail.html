@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ post.title }}{% endblock %}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.text }}</p>
+    <p>Опубликовано на: {{ post.pub_date }}</p>
+    <p>Автор: {{ post.author }}</p>
+    <p>Категория: {{ post.category }}</p>
+    <p>Местоположение: {{ post.location }}</p>
+</body>
+</html>
