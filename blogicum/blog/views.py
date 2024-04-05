@@ -11,9 +11,9 @@ def index(request):
     return render(request, 'blog/index.html', context)
 
 
-def post_detail(request, id_post):
+def post_detail(request, post_id):
     """Отображение отдельного поста."""
-    post = get_object_or_404(Post.objects.published(), pk=id_post)
+    post = get_object_or_404(Post.objects.published(), pk=post_id)
     context = {'post': post}
     return render(request, 'blog/detail.html', context)
 
@@ -23,8 +23,6 @@ def category_posts(request, category_slug):
     category = get_object_or_404(
         Category.objects.filter(is_published=True), slug=category_slug
     )
-    post_list = Post.objects.published().filter(
-        category=category
-    )[:POSTS_PER_PAGE]
+    post_list = Post.objects.published().filter(category=category)
     context = {'post_list': post_list, 'category': category}
     return render(request, 'blog/category.html', context)

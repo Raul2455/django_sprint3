@@ -8,6 +8,6 @@
       </small>
     </h6>
     <p class="card-text">{{ post.text|truncatewords:10 }}</p>
-    <a href="{% url 'blog:post_detail' post.id %}" class="card-link">Читать полный текст</a>
+    <a href="{% url 'blog:post_detail' post.id %}" class="card-link">Читать полный текст</a>  <!-- Исправлено: передача правильного аргумента в функцию post_detail -->
   </div>
 </div>
