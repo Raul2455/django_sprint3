@@ -5,9 +5,7 @@ from django.utils.timezone import now
 
 
 class PostManager(Manager):
-    """
-    Менеджер модели Post, возвращающий только опубликованные посты.
-    """
+    """Менеджер модели Post, возвращающий только опубликованные посты."""
 
     def get_queryset(self) -> QuerySet:
         """
@@ -23,7 +21,5 @@ class PostManager(Manager):
         )
 
     def published(self) -> QuerySet:
-        """
-        Метод для получения только опубликованных постов.
-        """
+        """Метод для получения только опубликованных постов."""
         return self.get_queryset()

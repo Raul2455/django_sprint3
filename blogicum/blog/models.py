@@ -1,5 +1,3 @@
-"""Этот модуль содержит модели для приложения блога."""
-
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -20,6 +18,7 @@ class Category(PublishedModel):
         description (TextField): Описание категории.
         slug (SlugField): Идентификатор категории, используемый в URL.
     """
+
     title = models.CharField(
         max_length=MAX_LENGTH_TITLE,
         blank=True,
@@ -53,6 +52,7 @@ class Location(PublishedModel):
     Атрибуты:
         name (CharField): Название местоположения.
     """
+
     name = models.CharField(
         max_length=MAX_LENGTH_TITLE,
         blank=True,
@@ -80,6 +80,7 @@ class Post(PublishedModel):
         location (ForeignKey): Ссылка на местоположение с публикацией.
         category (ForeignKey): Ссылка на категорию публикации.
     """
+
     title = models.CharField(
         max_length=MAX_LENGTH_TITLE,
         verbose_name='Заголовок',
