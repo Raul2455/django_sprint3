@@ -11,6 +11,7 @@ MAX_LENGTH_TITLE = 256  # Константа для максимальной д�
 
 class PublishedModel(models.Model):
     """Абстрактная модель. Добавляет флаг is_published и дату-время."""
+
     is_published = models.BooleanField(
         default=True,
         verbose_name='Опубликовано',
@@ -27,6 +28,7 @@ class PublishedModel(models.Model):
 
 class Category(PublishedModel):
     """Категория публикаций в блоге."""
+
     title = models.CharField(
         max_length=MAX_LENGTH_TITLE,
         blank=True,
@@ -55,6 +57,7 @@ class Category(PublishedModel):
 
 class Location(PublishedModel):
     """Местоположение, связанное с публикацией в блоге."""
+
     name = models.CharField(
         max_length=MAX_LENGTH_TITLE,
         blank=True,
@@ -72,6 +75,7 @@ class Location(PublishedModel):
 
 class Post(PublishedModel):
     """Публикация в блоге."""
+
     title = models.CharField(
         max_length=MAX_LENGTH_TITLE,
         verbose_name='Заголовок',
