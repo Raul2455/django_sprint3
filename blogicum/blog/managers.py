@@ -8,9 +8,7 @@ class PostManager(Manager):
     """Менеджер модели Post для возвращения опубликованных постов."""
 
     def published(self):
-        """
-        Возвращает опубликованные посты с использованием select_related.
-        """
+        """Возвращает опубликованные посты с использованием select_related."""
         return self.get_queryset().filter(
             is_published=True,
             pub_date__lt=now(),
