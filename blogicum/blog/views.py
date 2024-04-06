@@ -20,9 +20,8 @@ def post_detail(request, post_id):
 
 def category_posts(request, category_slug):
     """Отображение постов по отдельной категории."""
-    category = get_object_or_404(
-        Category.objects.filter(is_published=True), slug=category_slug
-    )
+    category = get_object_or_404(Category, is_published=True,
+                                 slug=category_slug)
     post_list = Post.objects.published().filter(category=category)
     context = {'post_list': post_list, 'category': category}
     return render(request, 'blog/category.html', context)

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from core.models import PublishedModel
+# Импортируем кастомный менеджер для модели Post
 from .managers import PostManager
 
 User = get_user_model()
@@ -9,16 +9,24 @@ User = get_user_model()
 MAX_LENGTH_TITLE = 256  # Константа для максимальной длины заголовка
 
 
+class PublishedModel(models.Model):
+    """Абстрактная модель. Добавляет флаг is_published и дату-время."""
+    is_published = models.BooleanField(
+        default=True,
+        verbose_name='Опубликовано',
+        help_text='Снимите галочку, чтобы скрыть публикацию.',
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Добавлено',
+    )
+
+    class Meta:
+        abstract = True
+
+
 class Category(PublishedModel):
-    """
-    Категория публикаций в блоге.
-
-    Атрибуты:
-        title (CharField): Заголовок категории.
-        description (TextField): Описание категории.
-        slug (SlugField): Идентификатор категории, используемый в URL.
-    """
-
+    """Категория публикаций в блоге."""
     title = models.CharField(
         max_length=MAX_LENGTH_TITLE,
         blank=True,
@@ -46,13 +54,7 @@ class Category(PublishedModel):
 
 
 class Location(PublishedModel):
-    """
-    Местоположение, связанное с публикацией в блоге.
-
-    Атрибуты:
-        name (CharField): Название местоположения.
-    """
-
+    """Местоположение, связанное с публикацией в блоге."""
     name = models.CharField(
         max_length=MAX_LENGTH_TITLE,
         blank=True,
@@ -69,18 +71,7 @@ class Location(PublishedModel):
 
 
 class Post(PublishedModel):
-    """
-    Публикация в блоге.
-
-    Атрибуты:
-        title (CharField): Заголовок публикации.
-        text (TextField): Текст публикации.
-        pub_date (DateTimeField): Дата и время публикации.
-        author (ForeignKey): Ссылка на пользователя, автора публикации.
-        location (ForeignKey): Ссылка на местоположение с публикацией.
-        category (ForeignKey): Ссылка на категорию публикации.
-    """
-
+    """Публикация в блоге."""
     title = models.CharField(
         max_length=MAX_LENGTH_TITLE,
         verbose_name='Заголовок',
@@ -112,6 +103,9 @@ class Post(PublishedModel):
         verbose_name='Категория',
     )
 
+    # Вот здесь мы добавляем кастомный менеджер модели
+    objects = PostManager()
+
     class Meta:
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
@@ -120,6 +114,3 @@ class Post(PublishedModel):
 
     def __str__(self):
         return self.title[:50]
-
-    # Подключаем наш кастомный менеджер
-    objects = PostManager()
