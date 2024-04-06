@@ -5,11 +5,15 @@ from django.utils.timezone import now
 
 
 class PostManager(Manager):
-    """Менеджер модели Post, возвращающий только опубликованные посты."""
+    """
+    Менеджер модели Post, возвращающий только опубликованные посты.
+    """
 
     def published(self):
-        """Метод для получения только опубликованных постов
-        через select_related."""
+        """
+        Метод для получения только опубликованных постов
+        через select_related.
+        """
         return self.get_queryset().filter(
             is_published=True,
             pub_date__lt=now(),
